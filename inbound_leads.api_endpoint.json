@@ -1,0 +1,16 @@
+{
+  "name": "Inbound Leads",
+  "method": "POST",
+  "path": "inbound-leads",
+  "legacy": false,
+  "recipe_id": {
+    "zip_name": "inbound_leads.recipe.json",
+    "name": "Inbound Leads",
+    "folder": ""
+  },
+  "api_group_id": {
+    "zip_name": "leads_api.api_group.json",
+    "name": "Leads API",
+    "folder": ""
+  }
+}

@@ -1,0 +1,797 @@
+{
+  "name": "Integration between postgres to salesforce",
+  "description": "When there is a trigger event, do action",
+  "version": 5,
+  "private": false,
+  "concurrency": 1,
+  "code": {
+    "number": 0,
+    "provider": "postgresql",
+    "name": "updated_rows_batch",
+    "as": "15be889b",
+    "title": "New/updated rows in public.postgres_db_data",
+    "description": "New/updated <span class=\"provider\">batch of rows</span> in <span class=\"provider\">public.postgres_db_data</span> table in <span class=\"provider\">PostgreSQL</span>",
+    "keyword": "trigger",
+    "dynamicPickListSelection": {
+      "table": "public.postgres_db_data",
+      "sort_column": "creation_dt",
+      "primary_key": "customer_adhar_id"
+    },
+    "toggleCfg": {
+      "table": true
+    },
+    "input": {
+      "table": "public.postgres_db_data",
+      "batch_size": "10",
+      "sort_column": "creation_dt",
+      "primary_key": "customer_adhar_id"
+    },
+    "extended_output_schema": [
+      {
+        "label": "Rows",
+        "name": "rows",
+        "of": "object",
+        "properties": [
+          {
+            "control_type": "date_time",
+            "label": "creation_dt",
+            "render_input": "convert_date_time",
+            "parse_output": "convert_date_time",
+            "details": {
+              "primary_key": false,
+              "data_type": "timestamp without time zone",
+              "column_name": "creation_dt"
+            },
+            "optional": true,
+            "hint": "timestamp without time zone",
+            "type": "date_time",
+            "name": "creation_dt"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_address",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_address",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_address"
+          },
+          {
+            "control_type": "number",
+            "label": "customer_adhar_id",
+            "parse_output": "parse_numeric_output",
+            "details": {
+              "primary_key": true,
+              "data_type": "numeric",
+              "column_name": "customer_adhar_id"
+            },
+            "optional": true,
+            "event_title": true,
+            "hint": "numeric, primary key",
+            "type": "number",
+            "name": "customer_adhar_id"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_company",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_company",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_company"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_country",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_country",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_country"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_currency",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_currency",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_currency"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_email",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_email",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_email"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_guid",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_guid",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_guid"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_iban",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_iban",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_iban"
+          },
+          {
+            "control_type": "number",
+            "label": "customer_list",
+            "parse_output": "parse_numeric_output",
+            "details": {
+              "primary_key": false,
+              "data_type": "numeric",
+              "column_name": "customer_list"
+            },
+            "optional": true,
+            "hint": "numeric",
+            "type": "number",
+            "name": "customer_list"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_name",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_name",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_name"
+          },
+          {
+            "control_type": "number",
+            "label": "customer_numberrange",
+            "parse_output": "parse_numeric_output",
+            "details": {
+              "primary_key": false,
+              "data_type": "numeric",
+              "column_name": "customer_numberrange"
+            },
+            "optional": true,
+            "hint": "numeric",
+            "type": "number",
+            "name": "customer_numberrange"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_pan",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_pan",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_pan"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_phone",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_phone",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_phone"
+          },
+          {
+            "control_type": "number",
+            "label": "customer_pin",
+            "parse_output": "parse_numeric_output",
+            "details": {
+              "primary_key": false,
+              "data_type": "numeric",
+              "column_name": "customer_pin"
+            },
+            "optional": true,
+            "hint": "numeric",
+            "type": "number",
+            "name": "customer_pin"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_postalzip",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_postalzip",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_postalzip"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_region",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_region",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_region"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_rut",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_rut",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_rut"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_text",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_text",
+              "length": 200
+            },
+            "optional": true,
+            "hint": "character varying, max length 200",
+            "type": "string",
+            "name": "customer_text"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_track1",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_track1",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_track1"
+          },
+          {
+            "control_type": "text",
+            "label": "customer_track2",
+            "details": {
+              "primary_key": false,
+              "data_type": "character varying",
+              "column_name": "customer_track2",
+              "length": 100
+            },
+            "optional": true,
+            "hint": "character varying, max length 100",
+            "type": "string",
+            "name": "customer_track2"
+          },
+          {
+            "control_type": "text",
+            "label": "is_immigrant",
+            "details": {
+              "primary_key": false,
+              "data_type": "boolean",
+              "column_name": "is_immigrant"
+            },
+            "parse_output": "parse_boolean_output",
+            "optional": true,
+            "hint": "boolean",
+            "type": "string",
+            "name": "is_immigrant"
+          }
+        ],
+        "type": "array"
+      },
+      {
+        "control_type": "number",
+        "label": "First row ID",
+        "name": "first_id",
+        "optional": true,
+        "parse_output": "float_conversion",
+        "type": "number"
+      },
+      {
+        "control_type": "number",
+        "label": "Last row ID",
+        "name": "last_id",
+        "optional": true,
+        "parse_output": "float_conversion",
+        "type": "number"
+      }
+    ],
+    "extended_input_schema": [
+      {
+        "control_type": "select",
+        "extends_schema": true,
+        "help": {
+          "title": "Warning",
+          "text": "A primary key or a column with unique constraint is recommended. This column should also be auto-incremental. Otherwise, trigger events may be missed."
+        },
+        "hint": "Select a unique key column to deduplicate rows. Performance can be improved if the selected unique key is indexed. <a href=\"https://docs.workato.com/connectors/postgresql.html#unique-key\" target=\"_blank\">Learn more</a>",
+        "label": "Unique key",
+        "name": "primary_key",
+        "pick_list": "columns_list",
+        "pick_list_params": {
+          "table": "table"
+        },
+        "type": "string"
+      },
+      {
+        "control_type": "select",
+        "help": {
+          "title": "Warning",
+          "text": "A column with high precision, up to milliseconds, is recommended. Otherwise, updates occurring within milliseconds may be missed."
+        },
+        "hint": "Select a column to identify updated rows. Only timestamp columns can be used as a sort column. <a href=\"https://docs.workato.com/connectors/postgresql.html#sort-column\" target=\"_blank\">Learn more</a>",
+        "label": "Sort column",
+        "name": "sort_column",
+        "pick_list": "timestamp_columns_list",
+        "pick_list_params": {
+          "table": "table"
+        },
+        "type": "string"
+      },
+      {
+        "control_type": "text",
+        "default": "100",
+        "hint": "Batch size of rows to return in each job. Maximum batch size is 1000 and default is 100.",
+        "label": "Batch size",
+        "name": "batch_size",
+        "parse_output": "integer_conversion",
+        "type": "integer"
+      },
+      {
+        "control_type": "multiselect",
+        "delimiter": "\n",
+        "extends_schema": true,
+        "hint": "Choose columns to be returned from the selected table. Leave blank to return all columns.",
+        "label": "Output columns",
+        "name": "output_columns",
+        "optional": true,
+        "pick_list": "columns_list",
+        "pick_list_params": {
+          "table": "table"
+        },
+        "type": "string"
+      },
+      {
+        "allow_formula_mode": true,
+        "control_type": "code",
+        "hint": "Rows matching this condition will be processed, e.g. <b>currency = 'USD'</b> (enclose strings in single quotes)",
+        "label": "WHERE condition",
+        "language": "sql",
+        "name": "where",
+        "optional": true,
+        "sql_mime_type": "x-pgsql",
+        "sticky": true,
+        "support_pills": true,
+        "type": "string"
+      }
+    ],
+    "block": [
+      {
+        "number": 1,
+        "as": "5c2af64b",
+        "keyword": "foreach",
+        "dynamicPickListSelection": {
+        },
+        "toggleCfg": {
+        },
+        "repeat_mode": "simple",
+        "batch_size": "10",
+        "clear_scope": "false",
+        "input": {
+        },
+        "block": [
+          {
+            "number": 2,
+            "provider": "salesforce",
+            "name": "upsert_sobject",
+            "as": "ec0a8028",
+            "title": "Upsert olc_sfdc_co",
+            "description": "Upsert <span class=\"provider\">olc_sfdc_co</span> in <span class=\"provider\">Salesforce</span>",
+            "keyword": "action",
+            "dynamicPickListSelection": {
+              "sobject_name": "olc_sfdc_co",
+              "query_field.primary_key": [
+                {
+                  "label": "aadhaarNumber",
+                  "value": "aadhaarNumber__c"
+                }
+              ]
+            },
+            "toggleCfg": {
+            },
+            "input": {
+              "sobject_name": "olc_sfdc_co__c",
+              "query_field": {
+                "primary_key": "aadhaarNumber__c"
+              },
+              "aadhaarNumber__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_adhar_id\"]}')}",
+              "companyName__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_company\"]}')}",
+              "customerCountry__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_country\"]}')}",
+              "customerCurrency__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_currency\"]}')}",
+              "customerGuid__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_guid\"]}')}",
+              "customerList__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_list\"]}')}",
+              "customerRegion__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_region\"]}')}",
+              "customerText__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_text\"]}')}",
+              "emailAddress__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_email\"]}')}",
+              "fullName__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_name\"]}')}",
+              "ibanNumber__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_iban\"]}')}",
+              "isImmigrant__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"is_immigrant\"]}')}",
+              "numberRange__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_numberrange\"]}')}",
+              "panNumber__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_pan\"]}')}",
+              "phoneNumber__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_phone\"]}')}",
+              "pinCode__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_pin\"]}')}",
+              "postalAddress__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_address\"]}')}",
+              "postalZipCode__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_postalzip\"]}')}",
+              "rutNumber__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_rut\"]}')}",
+              "trackData1__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_track1\"]}')}",
+              "trackData2__c": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"foreach\",\"line\":\"5c2af64b\",\"path\":[\"customer_track2\"]}')}",
+              "Name": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"postgresql\",\"line\":\"15be889b\",\"path\":[\"rows\",{\"path_element_type\":\"current_item\"},\"customer_name\"]}')}"
+            },
+            "extended_input_schema": [
+              {
+                "control_type": "number",
+                "custom": true,
+                "hint": "Search for  where aadhaarNumber has this value. If a record already exists, it will be updated. Otherwise, a new record will be created",
+                "label": "aadhaarNumber",
+                "name": "aadhaarNumber__c",
+                "optional": true,
+                "parse_output": "float_conversion",
+                "sticky": true,
+                "type": "number",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": false,
+                "label": "Owner ID",
+                "name": "OwnerId",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": false,
+                "label": "olc_sfdc_co Name",
+                "name": "Name",
+                "optional": true,
+                "sticky": true,
+                "type": "string",
+                "event_title": true,
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "companyName",
+                "name": "companyName__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "customerCountry",
+                "name": "customerCountry__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "customerCurrency",
+                "name": "customerCurrency__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "customerGuid",
+                "name": "customerGuid__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "number",
+                "custom": true,
+                "label": "customerList",
+                "name": "customerList__c",
+                "optional": true,
+                "parse_output": "float_conversion",
+                "type": "number",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "customerRegion",
+                "name": "customerRegion__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "customerText",
+                "name": "customerText__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "emailAddress",
+                "name": "emailAddress__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "fullName",
+                "name": "fullName__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "ibanNumber",
+                "name": "ibanNumber__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "isImmigrant",
+                "name": "isImmigrant__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "number",
+                "custom": true,
+                "label": "numberRange",
+                "name": "numberRange__c",
+                "optional": true,
+                "parse_output": "float_conversion",
+                "type": "number",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "panNumber",
+                "name": "panNumber__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "phoneNumber",
+                "name": "phoneNumber__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "number",
+                "custom": true,
+                "label": "pinCode",
+                "name": "pinCode__c",
+                "optional": true,
+                "parse_output": "float_conversion",
+                "type": "number",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "postalAddress",
+                "name": "postalAddress__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "postalZipCode",
+                "name": "postalZipCode__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "rutNumber",
+                "name": "rutNumber__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "trackData1",
+                "name": "trackData1__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              },
+              {
+                "control_type": "text",
+                "custom": true,
+                "label": "trackData2",
+                "name": "trackData2__c",
+                "optional": true,
+                "type": "string",
+                "sfdc_createable": true,
+                "sfdc_updateable": true
+              }
+            ],
+            "visible_config_fields": [
+              "sobject_name",
+              "query_field",
+              "query_field.primary_key",
+              "aadhaarNumber__c",
+              "Name",
+              "relationship_fields",
+              "OwnerId",
+              "companyName__c",
+              "customerCountry__c",
+              "customerCurrency__c",
+              "customerGuid__c",
+              "customerList__c",
+              "customerRegion__c",
+              "customerText__c",
+              "emailAddress__c",
+              "fullName__c",
+              "ibanNumber__c",
+              "isImmigrant__c",
+              "numberRange__c",
+              "panNumber__c",
+              "phoneNumber__c",
+              "pinCode__c",
+              "postalAddress__c",
+              "postalZipCode__c",
+              "rutNumber__c",
+              "trackData1__c",
+              "trackData2__c"
+            ],
+            "uuid": "0cb85ceb-7402-47e4-9bac-ac9a6aff6d78"
+          }
+        ],
+        "source": "#{_dp('{\"pill_type\":\"output\",\"provider\":\"postgresql\",\"line\":\"15be889b\",\"path\":[\"rows\"]}')}",
+        "uuid": "4a278bec-252a-42c9-a4a9-f3fc294bcbce"
+      }
+    ],
+    "uuid": "614d306c-e099-45f1-9ec9-293babc29ca5",
+    "unfinished": false
+  },
+  "config": [
+    {
+      "keyword": "application",
+      "provider": "postgresql",
+      "skip_validation": false,
+      "account_id": {
+        "zip_name": "my_postgresql_account.connection.json",
+        "name": "My PostgreSQL account",
+        "folder": ""
+      }
+    },
+    {
+      "keyword": "application",
+      "provider": "salesforce",
+      "skip_validation": false,
+      "account_id": {
+        "zip_name": "my_second_salesforce_account.connection.json",
+        "name": "My second Salesforce account",
+        "folder": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Leads API",
+  "version": "1.0",
+  "description": "Salesforce Lead Management APIs",
+  "handle": "leads-api-v1166",
+  "use_prefix": true
+}
